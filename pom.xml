@@ -10,9 +10,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.spring.is.here</groupId>
-	<artifactId>SpringIsHere</artifactId>
+	<artifactId>WebShopSpringIsHere</artifactId>
 	<version>0.0.1</version>
-	<name>SpringIsHere</name>
+	<name>WebShopSpringIsHere</name>
 	<description>A dummy spring project</description>
 
 	<properties>
@@ -29,6 +29,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-thymeleaf -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+			<version>2.1.3.RELEASE</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools -->
