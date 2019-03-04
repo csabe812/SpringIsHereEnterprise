@@ -48,27 +48,11 @@
 		</nav>
 
 
-		<article th:each="product : ${products}">
+		<article>
 			<header>
-				<h1 th:text="${product.name}">Name</h1>
-				<p th:text="${product.price}">1000 USD</p>
+				<p th:text="${exception}">Error</p>
 			</header>
-
-			<section th:utext="${product.description}">
-				<p>Here comes a very long description</p>
-			</section>
-
-			<!--footer>
-				<address>
-					This could be a kind of a footer
-				</address>
-			</footer-->
-			<hr />
 		</article>
-
-		<footer>
-			<p>Made by csabe812</p>
-		</footer>
 
 	</div>
 
