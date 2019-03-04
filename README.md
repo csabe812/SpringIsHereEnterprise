@@ -24,3 +24,8 @@ java -jar WebShopSpringIsHere-0.0.1.jar
 localhost:8080
 Fun :-)
 ```
+
+### What is currently working (funny but right now working the not working part):
+* http://localhost:8080 lists two dummy project
+* http://localhost:8080/nameofnotexistingpage : handled 404 error
+* http://localhost:8080/product/-1 throws id not found exception using GeneralException
