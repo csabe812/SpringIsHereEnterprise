@@ -47,25 +47,21 @@
 			</div>
 		</nav>
 
-
-		<article th:each="product : ${products}">
-			<header>
-				<h1 th:text="${product.name}">Name</h1>
-				<p th:text="${product.price}">1000 USD</p>
-			</header>
-
-			<section th:utext="${product.description}">
-				<p>Here comes a very long description</p>
-			</section>
-
-			<!--footer>
-				<address>
-					This could be a kind of a footer
-				</address>
-			</footer-->
-			<hr />
-		</article>
-
+		<div class="row">
+			<div class="card col-sm-4" style="width: 18rem;"
+				th:each="product : ${products}">
+				<div class="card-body">
+					<h5 class="card-title" th:text="${product.name}">Card title</h5>
+					<h6 class="card-subtitle mb-2 text-muted"
+						th:text="${product.price}">Card subtitle</h6>
+					<p class="card-text" th:utext="${product.description}">Some
+						quick example text to build on the card title and make up the bulk
+						of the card's content.</p>
+					<a href="#" class="card-link">Card link</a> <a href="#"
+						class="card-link">Another link</a>
+				</div>
+			</div>
+		</div>
 		<footer>
 			<p>Made by csabe812</p>
 		</footer>

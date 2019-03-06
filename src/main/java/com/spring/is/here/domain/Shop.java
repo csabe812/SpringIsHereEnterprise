@@ -1,6 +1,5 @@
 package com.spring.is.here.domain;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -9,6 +8,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+/**
+ * 
+ * Shop entity for storing shops
+ * 
+ * @author csabe812
+ *
+ */
 @Entity
 public class Shop {
 
@@ -19,38 +25,64 @@ public class Shop {
 	@OneToMany(mappedBy = "shop")
 	private List<Product> products;
 
+	/**
+	 * Default constuctor
+	 */
 	private Shop() {
 	}
 
-	
-	
+	/**
+	 * Constuctor with parameters
+	 */
 	public Shop(String name) {
 		super();
 		this.name = name;
 	}
 
-
-
+	/**
+	 * ID getter
+	 */
 	public Long getId() {
 		return id;
 	}
 
+	/**
+	 * ID setter
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
 
+	/**
+	 * Name getter
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Name setter
+	 * 
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * Products getter
+	 * 
+	 * @return
+	 */
 	public List<Product> getProducts() {
 		return products;
 	}
 
+	/**
+	 * Products setter
+	 * 
+	 * @param products
+	 */
 	public void setProducts(List<Product> products) {
 		this.products = products;
 	}

@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 /**
  * This is a Product POJO (Plain Old Java Object)
  * 
- * @author Csabcsi
+ * @author csabe812
  *
  */
 @Entity
@@ -27,14 +27,16 @@ public class Product {
 	private String description;
 	@ManyToOne
 	private Shop shop;
-	
+
 	/**
 	 * Default parameterless constructor
 	 */
-	private Product() {	}
+	private Product() {
+	}
 
-	
-	
+	/**
+	 * Constuctor with parameters
+	 */
 	public Product(String name, int price, String description, Shop shop) {
 		super();
 		this.name = name;
@@ -42,8 +44,6 @@ public class Product {
 		this.description = description;
 		this.shop = shop;
 	}
-
-
 
 	/**
 	 * Constructor with parameters

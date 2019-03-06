@@ -12,26 +12,51 @@ import com.spring.is.here.domain.Shop;
 import com.spring.is.here.repository.ProductRepository;
 import com.spring.is.here.repository.ShopRepository;
 
+/**
+ * Service class for getting the info from the repos.
+ * 
+ * @author csabe812
+ *
+ */
 @Service
 public class ProductService {
 
 	private ProductRepository productRepository;
 	private ShopRepository shopRepository;
-	
+
+	/**
+	 * Constructor using fields
+	 * 
+	 * @param productRepository
+	 * @param shopRepository
+	 */
 	@Autowired
 	public ProductService(ProductRepository productRepository, ShopRepository shopRepository) {
 		this.productRepository = productRepository;
 		this.shopRepository = shopRepository;
 	}
 
+	/**
+	 * Getter for the products
+	 * 
+	 * @return
+	 */
 	public List<Product> getProducts() {
 		return this.productRepository.findAll();
 	}
-	
+
+	/**
+	 * Getter for one product
+	 * 
+	 * @return
+	 */
 	public Product getProduct() {
 		return this.productRepository.findFirstByOrderByPrice();
 	}
 
+	/**
+	 * Initializing with two products and storing it in a shop
+	 */
 	@PostConstruct
 	public void init() {
 		Shop shop = new Shop("InnerShop");
@@ -42,6 +67,12 @@ public class ProductService {
 		productRepository.save(product2);
 	}
 
+	/**
+	 * Getting a {name} product
+	 * 
+	 * @param name
+	 * @return
+	 */
 	public Product getSpecificProduct(String name) {
 		return this.productRepository.findByName(name);
 	}

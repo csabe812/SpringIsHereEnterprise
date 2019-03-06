@@ -3,17 +3,12 @@
  */
 package com.spring.is.here.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.spring.is.here.domain.Product;
-import com.spring.is.here.repository.ProductRepository;
 import com.spring.is.here.service.ProductService;
 
 /**
@@ -24,15 +19,19 @@ import com.spring.is.here.service.ProductService;
  */
 @Controller
 public class HomeController {
-	
+
 	private ProductService productService;
-	
+
+	/**
+	 * Constructor
+	 * 
+	 * @param productService
+	 */
 	@Autowired
 	public HomeController(ProductService productService) {
 		this.productService = productService;
 	}
-	
-	
+
 	/**
 	 * Adds the products to the model
 	 * 
@@ -45,12 +44,18 @@ public class HomeController {
 		return "products";
 	}
 
+	/**
+	 * Get only ONE product
+	 * 
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/product")
 	public String product(Model model) {
 		model.addAttribute("product", this.productService.getProduct());
 		return "product";
 	}
-	
+
 	/**
 	 * Searches for a product. If the id is null, an exception will be thrown.
 	 * 
@@ -65,7 +70,11 @@ public class HomeController {
 		}
 		return "product";
 	}
-	
+
+	/*
+	 * 
+	 * Get a product by its name
+	 */
 	@RequestMapping("/productname/{name}")
 	public String searchForProductByName(@PathVariable(value = "name") String name, Model model) throws Exception {
 		if (name == null) {
@@ -74,5 +83,5 @@ public class HomeController {
 		model.addAttribute("product", productService.getSpecificProduct(name));
 		return "product";
 	}
-	
+
 }
