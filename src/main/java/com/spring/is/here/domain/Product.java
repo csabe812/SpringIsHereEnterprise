@@ -3,24 +3,47 @@
  */
 package com.spring.is.here.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
 /**
  * This is a Product POJO (Plain Old Java Object)
  * 
  * @author Csabcsi
  *
  */
+@Entity
 public class Product {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
 	private String name;
 	private int price;
 	private String description;
-
+	@ManyToOne
+	private Shop shop;
+	
 	/**
 	 * Default parameterless constructor
 	 */
-	public Product() {
+	private Product() {	}
 
+	
+	
+	public Product(String name, int price, String description, Shop shop) {
+		super();
+		this.name = name;
+		this.price = price;
+		this.description = description;
+		this.shop = shop;
 	}
+
+
 
 	/**
 	 * Constructor with parameters
@@ -34,6 +57,24 @@ public class Product {
 		this.name = name;
 		this.price = price;
 		this.description = description;
+	}
+
+	/**
+	 * Id of the product
+	 * 
+	 * @return
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * Setting the id of the product
+	 * 
+	 * @param id
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	/**

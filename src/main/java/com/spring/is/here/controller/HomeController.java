@@ -4,13 +4,17 @@
 package com.spring.is.here.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.spring.is.here.domain.Product;
+import com.spring.is.here.repository.ProductRepository;
+import com.spring.is.here.service.ProductService;
 
 /**
  * This is the HomeController class a.k.a. the main page a.k.a index
@@ -20,7 +24,15 @@ import com.spring.is.here.domain.Product;
  */
 @Controller
 public class HomeController {
-
+	
+	private ProductService productService;
+	
+	@Autowired
+	public HomeController(ProductService productService) {
+		this.productService = productService;
+	}
+	
+	
 	/**
 	 * Adds the products to the model
 	 * 
@@ -29,10 +41,16 @@ public class HomeController {
 	 */
 	@RequestMapping("/")
 	public String products(Model model) {
-		model.addAttribute("products", getProducts());
+		model.addAttribute("products", this.productService.getProducts());
 		return "products";
 	}
 
+	@RequestMapping("/product")
+	public String product(Model model) {
+		model.addAttribute("product", this.productService.getProduct());
+		return "product";
+	}
+	
 	/**
 	 * Searches for a product. If the id is null, an exception will be thrown.
 	 * 
@@ -47,22 +65,14 @@ public class HomeController {
 		}
 		return "product";
 	}
-
-	/**
-	 * Return two dummy products.
-	 * 
-	 * @return
-	 */
-	public ArrayList<Product> getProducts() {
-		ArrayList<Product> products = new ArrayList<Product>();
-
-		Product p1 = new Product("Story", 100, "Magazine");
-		Product p2 = new Product("Penna", 10, "Pen");
-
-		products.add(p1);
-		products.add(p2);
-
-		return products;
+	
+	@RequestMapping("/productname/{name}")
+	public String searchForProductByName(@PathVariable(value = "name") String name, Model model) throws Exception {
+		if (name == null) {
+			throw new Exception("No product found");
+		}
+		model.addAttribute("product", productService.getSpecificProduct(name));
+		return "product";
 	}
-
+	
 }
