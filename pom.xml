@@ -51,11 +51,15 @@
 		<!-->dependency> <groupId>com.h2database</groupId> <artifactId>h2</artifactId> 
 			</dependency -->
 		<!-- https://mvnrepository.com/artifact/postgresql/postgresql -->
+		<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+		<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
 		<dependency>
-			<groupId>postgresql</groupId>
+			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>9.1-901.jdbc3</version>
+			<version>42.2.4</version>
+			<scope>runtime</scope>
 		</dependency>
+
 
 
 
