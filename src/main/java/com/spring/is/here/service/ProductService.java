@@ -32,12 +32,14 @@ public class ProductService {
 		return this.productRepository.findFirstByOrderByPrice();
 	}
 
-	//@PostConstruct
+	@PostConstruct
 	public void init() {
 		Shop shop = new Shop("InnerShop");
 		shopRepository.save(shop);
-		Product product = new Product("InnerProduct", 2000, "InnerDescription", shop);
-		productRepository.save(product);
+		Product product1 = new Product("InnerProduct1", 1111, "InnerDescription1", shop);
+		productRepository.save(product1);
+		Product product2 = new Product("InnerProduct2", 2222, "InnerDescription2", shop);
+		productRepository.save(product2);
 	}
 
 	public Product getSpecificProduct(String name) {
