@@ -32,7 +32,7 @@ public class ProductService {
 		return this.productRepository.findFirstByOrderByPrice();
 	}
 
-	@PostConstruct
+	//@PostConstruct
 	public void init() {
 		Shop shop = new Shop("InnerShop");
 		shopRepository.save(shop);
