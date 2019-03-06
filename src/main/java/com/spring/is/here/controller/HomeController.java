@@ -71,7 +71,7 @@ public class HomeController {
 		return "product";
 	}
 
-	/*
+	/**
 	 * 
 	 * Get a product by its name
 	 */
