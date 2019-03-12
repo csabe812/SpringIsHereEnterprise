@@ -1,0 +1,19 @@
+<!doctype html>
+<html layout:decorator="layouts/main">
+<body>
+	<div layout:fragment="contentFragment">
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">Name</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="shop : ${shops}">
+					<td th:text="${shop.name}">Mark</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

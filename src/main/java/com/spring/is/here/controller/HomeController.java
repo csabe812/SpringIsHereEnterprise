@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.spring.is.here.service.ProductService;
+import com.spring.is.here.service.ShopService;
 
 /**
  * This is the HomeController class a.k.a. the main page a.k.a index
@@ -21,15 +22,17 @@ import com.spring.is.here.service.ProductService;
 public class HomeController {
 
 	private ProductService productService;
-
+	private ShopService shopService;
+	
 	/**
 	 * Constructor
 	 * 
 	 * @param productService
 	 */
 	@Autowired
-	public HomeController(ProductService productService) {
+	public HomeController(ProductService productService, ShopService shopService) {
 		this.productService = productService;
+		this.shopService = shopService;
 	}
 
 	/**
@@ -44,6 +47,13 @@ public class HomeController {
 		return "products";
 	}
 
+	@RequestMapping("/shops")
+	public String shops(Model model) {
+		model.addAttribute("shops", this.shopService.getShops());
+		return "shops";
+	}
+	
+	
 	/**
 	 * Get only ONE product
 	 * 
