@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 /**
  * 
  * Shop entity for storing shops
@@ -22,6 +24,7 @@ public class Shop {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
+	@JsonBackReference
 	@OneToMany(mappedBy = "shop")
 	private List<Product> products;
 

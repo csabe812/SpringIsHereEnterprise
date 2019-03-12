@@ -75,13 +75,13 @@ public class HomeController {
 	 * 
 	 * Get a product by its name
 	 */
-	@RequestMapping("/productname/{name}")
-	public String searchForProductByName(@PathVariable(value = "name") String name, Model model) throws Exception {
-		if (name == null) {
-			throw new Exception("No product found");
-		}
-		model.addAttribute("product", productService.getSpecificProduct(name));
-		return "product";
-	}
+//	@RequestMapping("/productname/{name}")
+//	public String searchForProductByName(@PathVariable(value = "name") String name, Model model) throws Exception {
+//		if (name == null) {
+//			throw new Exception("No product found");
+//		}
+//		model.addAttribute("product", productService.getSpecificProduct(name));
+//		return "product";
+//	}
 
 }
