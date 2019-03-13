@@ -6,11 +6,13 @@
 			<thead>
 				<tr>
 					<th scope="col">Name</th>
+					<th scope="col">Actions</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="shop : ${shops}">
 					<td th:text="${shop.name}">Mark</td>
+					<td><a href="#" class="btn btn-sm btn-info">Products</a></td>
 				</tr>
 			</tbody>
 		</table>
