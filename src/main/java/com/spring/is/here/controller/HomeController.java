@@ -41,13 +41,13 @@ public class HomeController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("/")
+	@RequestMapping("/products")
 	public String products(Model model) {
 		model.addAttribute("products", this.productService.getProducts());
 		return "products";
 	}
 
-	@RequestMapping("/shops")
+	@RequestMapping("/")
 	public String shops(Model model) {
 		model.addAttribute("shops", this.shopService.getShops());
 		return "shops";

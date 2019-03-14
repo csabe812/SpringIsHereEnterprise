@@ -12,7 +12,11 @@
 			<tbody>
 				<tr th:each="shop : ${shops}">
 					<td th:text="${shop.name}">Mark</td>
-					<td><a href="#" class="btn btn-sm btn-info">Products</a></td>
+					<td>
+						<a th:href="@{/shop/{id}/products(id=${shop.id})}" class="btn btn-sm btn-info">Products</a>
+						<a th:href="@{/shop/edit/{id}(id=${shop.id})}" class="btn btn-sm btn-info">Edit</a>
+						<a th:href="@{/shop/delete/{id}(id=${shop.id})}" class="btn btn-sm btn-info">Delete</a>
+					</td>
 				</tr>
 			</tbody>
 		</table>

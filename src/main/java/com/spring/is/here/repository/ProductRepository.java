@@ -33,4 +33,6 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
 	 * @return
 	 */
 	Product findByName(String name);
+	
+	List<Product> findByShopId(long id);
 }
