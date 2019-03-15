@@ -4,6 +4,8 @@
 	<div layout:fragment="contentFragment">
 		<div class="container">
 			<div class="row">
+				<a th:href="@{/shop/{id}/products/addnewproduct}"
+					class="btn btn-sm btn-info">Add new product</a>
 				<div class="col-md-4" th:each="product : ${products}">
 					<div class="card mb-4 shadow-sm">
 						<svg class="bd-placeholder-img card-img-top" width="100%"
@@ -23,8 +25,11 @@
 							<div class="d-flex justify-content-between align-items-center">
 								<div class="btn-group">
 									<button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-									<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-									<button type="button" class="btn btn-sm btn-outline-secondary">Buy</button>
+									<a
+										th:href="@{/shop/{shopid}/products/edit/{productid}(shopid=${product.shop.id},productid=${product.id})}"
+										class="btn btn-sm btn-info">Edit</a> <a
+										th:href="@{/shop/{shopid}/products/delete/{productid}(shopid=${product.shop.id},productid=${product.id})}"
+										class="btn btn-sm btn-error">Delete</a>
 								</div>
 								<small class="text-muted">9 mins</small>
 							</div>

@@ -90,4 +90,10 @@ public class Shop {
 		this.products = products;
 	}
 
+	@Override
+	public String toString() {
+		return "Shop [id=" + id + ", name=" + name + ", products=" + products + "]";
+	}
+
+	
 }

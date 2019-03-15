@@ -131,12 +131,24 @@ public class Product {
 		this.description = description;
 	}
 
+	
+	
+	public Shop getShop() {
+		return shop;
+	}
+
+	public void setShop(Shop shop) {
+		this.shop = shop;
+	}
+
+
 	/**
 	 * A toString() method to print the object's data
 	 */
 	@Override
 	public String toString() {
-		return "Product [name=" + name + ", price=" + price + ", description=" + description + "]";
+		return "Product [id=" + id + ", name=" + name + ", price=" + price + ", description=" + description + ", shop="
+				+ shop + "]";
 	}
-
+	
 }
