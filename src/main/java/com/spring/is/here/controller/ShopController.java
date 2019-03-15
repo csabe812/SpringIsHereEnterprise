@@ -47,8 +47,7 @@ public class ShopController {
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public String showUpdateForm(@PathVariable("id") long id, Model model) {
-		Shop shop = shopRepository.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+		Shop shop = shopRepository.findById(id);
 		model.addAttribute("shop", shop);
 		return "update-shop";
 	}
@@ -67,8 +66,7 @@ public class ShopController {
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public String deleteShop(@PathVariable("id") long id, Model model) {
-		Shop shop = shopRepository.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+		Shop shop = shopRepository.findById(id);
 		shopRepository.delete(shop);
 		model.addAttribute("shops", shopRepository.findAll());
 		return "shops";

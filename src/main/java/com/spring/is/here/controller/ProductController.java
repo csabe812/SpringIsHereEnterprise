@@ -34,11 +34,12 @@ public class ProductController {
 	@RequestMapping(value = "/{id}/products", method = RequestMethod.GET)
 	public String getProductsByShop(@PathVariable("id") long id, Model model) {
 		model.addAttribute("products", productRepository.findByShopId(id));
+		model.addAttribute("shop", shopRepository.findById(id));
 		return "products";
 	}
 
-	@RequestMapping(value = "/addnewproduct", method = RequestMethod.GET)
-	public String showNewProductForm() {
+	@RequestMapping(value = "/{id}/products/addnewproduct", method = RequestMethod.GET)
+	public String showNewProductForm(@PathVariable("id") long id, Product product, Shop shop) {
 		return "add-product";
 	}
 
@@ -47,17 +48,19 @@ public class ProductController {
 		if (result.hasErrors()) {
 			return "add-product";
 		}
+		log.info(product.toString());
+		log.info("ID: " + id);
 		Product p = product;
-		Shop s = this.shopRepository.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Invalid shop Id:" + id));
+		Shop s = this.shopRepository.findById(id);
 		p.setShop(s);
 		this.productRepository.save(p);
 		model.addAttribute("products", this.productRepository.findByShopId(id));
+		model.addAttribute("shop", s);
 		return "products";
 	}
 
-	@RequestMapping(value = "/{shopid}/products/edit/{productid}", method = RequestMethod.GET)
-	public String shopUpdateProductForm(@PathVariable("shopid") long shopid, @PathVariable("productid") long productid,
+	@RequestMapping(value = "/{shopid}/products/edit/{id}", method = RequestMethod.GET)
+	public String shopUpdateProductForm(@PathVariable("shopid") long shopid, @PathVariable("id") long productid,
 			Model model) {
 		Product product = productRepository.findById(productid)
 				.orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + productid));
@@ -65,17 +68,19 @@ public class ProductController {
 		return "update-product";
 	}
 
-	@RequestMapping(value = "/{shopid}/products/update/{productid}", method = RequestMethod.POST)
-	public String updateProduct(@PathVariable("shopid") long shopid, @PathVariable("productid") long productid,
+	@RequestMapping(value = "/{shopid}/products/update/{id}", method = RequestMethod.POST)
+	public String updateProduct(@PathVariable("shopid") long shopid, @PathVariable("id") long productid,
 			@Valid Product product, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			product.setId(productid);
+			log.info("Error occured during updating a product");
 			return "update-product";
 		}
 		log.info("id " + productid);
 		log.info(product.toString());
 		productRepository.save(product);
 		model.addAttribute("products", productRepository.findByShopId(shopid));
+		model.addAttribute("shop", shopRepository.findById(shopid));
 		return "products";
 	}
 
@@ -88,6 +93,7 @@ public class ProductController {
 				.orElseThrow(() -> new IllegalArgumentException("Invalid productid Id:" + productid));
 		productRepository.delete(product);
 		model.addAttribute("products", productRepository.findByShopId(shopid));
+		model.addAttribute("shop", shopRepository.findById(shopid));
 		return "products";
 	}
 }

@@ -19,4 +19,5 @@ public interface ShopRepository extends CrudRepository<Shop, Long> {
 	 */
 	List<Shop> findAll();
 
+	Shop findById(long id);
 }
