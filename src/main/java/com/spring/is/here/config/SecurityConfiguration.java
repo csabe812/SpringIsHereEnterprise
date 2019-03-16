@@ -14,9 +14,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	public void configureAuth(AuthenticationManagerBuilder auth) throws Exception {
 		auth.inMemoryAuthentication()
-			.withUser("asd").password("{noop}asdpass").roles("USER")
+			.withUser("user").password("{noop}user").roles("USER")
 			.and()
-			.withUser("asdadmin").password("{noop}admin").roles("ADMIN");
+			.withUser("shopowner").password("{noop}shopowner").roles("SHOP_OWNER")
+			.and()
+			.withUser("admin").password("{noop}admin").roles("ADMIN");
 	}
 	
 	@Override
@@ -24,8 +26,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http
 		.authorizeRequests()
 			.antMatchers("/admin/**").hasRole("ADMIN")
+			.antMatchers("/shopowner/**").hasRole("SHOP_OWNER")
 			.antMatchers("/regist").permitAll()
 			.antMatchers("/reg").permitAll()
+			.antMatchers("/console/**").permitAll()
 			.anyRequest().authenticated()
 			.and()
 			.formLogin()
@@ -35,6 +39,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.logout()
 			.logoutSuccessUrl("/login?logout")
 			.permitAll();
+		
+		//This is for only H2 embedded database
+		//TODO: delete this if you connect to the postresql
+		http.csrf().disable();
+		http.headers().frameOptions().disable();
 	}
 	
 }

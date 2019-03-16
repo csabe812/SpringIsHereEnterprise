@@ -1,5 +1,7 @@
 package com.spring.is.here.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,9 +13,12 @@ import com.spring.is.here.domain.User;
 import com.spring.is.here.repository.RoleRepository;
 import com.spring.is.here.repository.UserRepository;
 
+import jdk.internal.jline.internal.Log;
+
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
 
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	private UserRepository userRepository;
 	private RoleRepository roleRepository;
 
@@ -42,12 +47,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	@Override
 	public void registerUser(User user) {
 		Role userRole = roleRepository.findByRole(USER_ROLE);
-		if (userRole == null) {
+		if (userRole != null) {
 			user.getRoles().add(userRole);
+			log.info(userRole.toString());
 		} else {
 			user.addRoles(USER_ROLE);
 		}
-		user.addRoles(USER_ROLE);
 		User u = this.userRepository.save(user);
 	}
 
