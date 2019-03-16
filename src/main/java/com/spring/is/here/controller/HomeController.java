@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.spring.is.here.domain.User;
 import com.spring.is.here.service.ProductService;
@@ -105,11 +106,15 @@ public class HomeController {
 //		return "product";
 //	}
 	
-	@PostMapping("/reg")
-	public String reg(@ModelAttribute User user) {
+	@RequestMapping(value="/reg", method = RequestMethod.GET)
+	public String reg(User user) {
+		return "registration";
+	}
+
+	@RequestMapping(value="/regist", method = RequestMethod.POST)
+	public String regist(@ModelAttribute User user) {
 		log.info("New user");
 		userService.registerUser(user);
 		return "auth/login";
 	}
-
 }
