@@ -57,7 +57,7 @@ public class ProductService {
 	/**
 	 * Initializing with two products and storing it in a shop
 	 */
-	@PostConstruct
+	/*@PostConstruct
 	public void init() {
 		Shop shop = new Shop("InnerShop");
 		shopRepository.save(shop);
@@ -65,7 +65,7 @@ public class ProductService {
 		productRepository.save(product1);
 		Product product2 = new Product("InnerProduct2", 2222, "InnerDescription2", shop);
 		productRepository.save(product2);
-	}
+	}*
 
 	/**
 	 * Getting a {name} product
