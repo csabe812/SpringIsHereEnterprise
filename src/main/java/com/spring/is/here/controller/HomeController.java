@@ -117,4 +117,16 @@ public class HomeController {
 		userService.registerUser(user);
 		return "auth/login";
 	}
+	
+	@RequestMapping(value="/admin/addshopowner", method = RequestMethod.GET)
+	public String addShopOwner(User user) {
+		return "shopownerregistration";
+	}
+	
+	@RequestMapping(value="/admin/addnewshopowner", method = RequestMethod.POST)
+	public String addNewShopOwner(@ModelAttribute User user) {
+		log.info("New user");
+		userService.registerShopOwner(user);
+		return "auth/login";
+	}
 }

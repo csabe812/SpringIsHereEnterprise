@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.spring.is.here.domain.Role;
@@ -22,12 +23,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	private UserRepository userRepository;
 	private RoleRepository roleRepository;
 
-	private final String USER_ROLE = "user";
+	//private PasswordEncoder passwordEncoder;
+	
+	private final String USER_ROLE = "USER";
+	private final String SHOP_OWNER_ROLE = "SHOP_OWNER";
 
 	@Autowired
-	public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
+	public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository/*, PasswordEncoder passwordEncoder*/) {
 		this.userRepository = userRepository;
 		this.roleRepository = roleRepository;
+		//this.passwordEncoder = passwordEncoder;
 	}
 
 	@Override
@@ -53,6 +58,19 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		} else {
 			user.addRoles(USER_ROLE);
 		}
+		//user.setPassword(passwordEncoder.encode(user.getPassword()));
+		User u = this.userRepository.save(user);
+	}
+	
+	public void registerShopOwner(User user) {
+		Role userRole = roleRepository.findByRole(SHOP_OWNER_ROLE);
+		if (userRole != null) {
+			user.getRoles().add(userRole);
+			log.info(userRole.toString());
+		} else {
+			user.addRoles(SHOP_OWNER_ROLE);
+		}
+		//user.setPassword(passwordEncoder.encode(user.getPassword()));
 		User u = this.userRepository.save(user);
 	}
 

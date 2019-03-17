@@ -1,0 +1,45 @@
+<!doctype html>
+<html layout:decorator="layouts/main">
+<body>
+	<div layout:fragment="contentFragment">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+					<div class="card card-signin my-5">
+						<div class="card-body">
+							<h5 class="card-title text-center">New shop</h5>
+							<form action="#" th:action="@{/admin/addnewshopowner}" th:object="${user}"
+								method="post">
+								<div class="row">
+									<div class="form-group col-md-6">
+										<label for="fullName" class="col-form-label">Full name</label>
+										<input type="text" th:field="*{fullname}" class="form-control"
+											id="fullname" placeholder="Full name"> <span
+											th:if="${#fields.hasErrors('fullname')}"
+											th:errors="*{fullname}" class="text-danger"></span>
+											<label for="fullName" class="col-form-label">Full name</label>
+										<input type="text" th:field="*{email}" class="form-control"
+											id="email" placeholder="E-mail"> <span
+											th:if="${#fields.hasErrors('email')}"
+											th:errors="*{email}" class="text-danger"></span>
+											<label for="fullName" class="col-form-label">E-mail</label>
+										<input type="password" th:field="*{password}" class="form-control"
+											id="password" placeholder="Password"> <span
+											th:if="${#fields.hasErrors('password')}"
+											th:errors="*{password}" class="text-danger"></span>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6 mt-5">
+										<input type="submit" class="btn btn-primary" value="Add shop">
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
