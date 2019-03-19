@@ -6,11 +6,11 @@
 			<div class="row">
 				<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
 					<div class="card card-signin my-5">
-						<div class="card-body">
+						<div class="card-body" th:object="${shop}">
 							<h5 class="card-title text-center">New product</h5>
 							<form action="#"
-								th:action="@{/shop/{id}/products/addnewproduct/add(id=${shop.id})}"
-								th:object="${shop}" method="post">
+								th:action="@{/shop/{shopId}/products/addnewproduct(shopId=${shop.id})}"
+								method="post">
 								<div class="row">
 									<div class="form-group col-md-6" th:object="${product}">
 										<label for="name" class="col-form-label">Name</label> <input

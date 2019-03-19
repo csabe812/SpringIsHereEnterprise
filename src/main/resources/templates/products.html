@@ -3,7 +3,7 @@
 <body>
 	<div layout:fragment="contentFragment">
 		<div class="container" th:object="${shop}">
-			<a th:href="@{/shop/{id}/products/addnewproduct(id=${shop.id})}"
+			<a th:href="@{/shop/{shopId}/products/addproduct(shopId=${shop.id})}"
 				class="btn btn-sm btn-info">Add new product</a>
 			<div class="row">
 				<div class="col-md-4" th:each="product : ${products}">
@@ -26,9 +26,9 @@
 								<div class="btn-group">
 									<button type="button" class="btn btn-sm btn-outline-secondary">View</button>
 									<a
-										th:href="@{/shop/{shopid}/products/edit/{id}(shopid=${shop.id},id=${product.id})}"
+										th:href="@{/shop/{shopId}/products/edit/{productId}(shopId=${shop.id},productId=${product.id})}"
 										class="btn btn-sm btn-info">Edit</a> <a
-										th:href="@{/shop/{shopid}/products/delete/{productid}(shopid=${shop.id},productid=${product.id})}"
+										th:href="@{/shop/{shopId}/products/delete/{productId}(shopId=${shop.id},productId=${product.id})}"
 										class="btn btn-sm btn-error">Delete</a>
 								</div>
 								<small class="text-muted">9 mins</small>

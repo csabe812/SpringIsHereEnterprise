@@ -9,7 +9,7 @@
 						<div class="card-body">
 							<h5 class="card-title text-center">Edit product</h5>
 							<form action="#"
-								th:action="@{/shop/{shopid}/products/update/{id}(shopid=${product.shop.id},id=${product.id})}"
+								th:action="@{/shop/{shopId}/products/update/{productId}(shopId=${product.shop.id},productId=${product.id})}"
 								th:object="${product}" method="post">
 								<div class="row">
 									<div class="form-group col-md-6">
