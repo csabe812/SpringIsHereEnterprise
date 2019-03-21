@@ -65,6 +65,10 @@ public class HomeController {
 		return "shops";
 	}
 	
+	@RequestMapping("/tesztoldal")
+	public String tesztoldal() {
+		return "start";
+	}
 	
 	/**
 	 * Get only ONE product
