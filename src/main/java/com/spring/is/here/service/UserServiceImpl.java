@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.spring.is.here.domain.Role;
@@ -14,7 +13,6 @@ import com.spring.is.here.domain.User;
 import com.spring.is.here.repository.RoleRepository;
 import com.spring.is.here.repository.UserRepository;
 
-import jdk.internal.jline.internal.Log;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
