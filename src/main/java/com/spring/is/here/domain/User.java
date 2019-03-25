@@ -13,6 +13,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "users")
@@ -23,6 +24,7 @@ public class User {
 	private long id;
 
 	@Column(unique = true, nullable = false)
+	@NotBlank(message = "Email is mandatory")
 	private String email;
 
 	@Column(nullable = false)
