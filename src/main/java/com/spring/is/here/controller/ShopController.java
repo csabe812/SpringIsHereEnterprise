@@ -8,11 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.spring.is.here.domain.Shop;
+import com.spring.is.here.domain.User;
 import com.spring.is.here.repository.ShopRepository;
+import com.spring.is.here.repository.UserRepository;
 
 /**
  * 
@@ -27,6 +30,7 @@ public class ShopController {
 
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	private ShopRepository shopRepository;
+	private UserRepository userRepostiory;
 
 	/**
 	 * Constructor
@@ -34,8 +38,9 @@ public class ShopController {
 	 * @param shopRepository repository for the shop
 	 */
 	@Autowired
-	public ShopController(ShopRepository shopRepository) {
+	public ShopController(ShopRepository shopRepository, UserRepository userRespository) {
 		this.shopRepository = shopRepository;
+		this.userRepostiory = userRespository;
 	}
 
 	/**
@@ -45,7 +50,9 @@ public class ShopController {
 	 * @return the add-shop string (add-shop.html)
 	 */
 	@RequestMapping(value = "/addnewshop", method = RequestMethod.GET)
-	public String showNewShopForm(Shop shop) {
+	public String showNewShopForm(Shop shop, Model model) {
+		log.info(this.userRepostiory.findAll().toString());
+		model.addAttribute("users", this.userRepostiory.findAll());
 		return "add-shop";
 	}
 
@@ -58,10 +65,13 @@ public class ShopController {
 	 * @return
 	 */
 	@RequestMapping(value = "/addshop", method = RequestMethod.POST)
-	public String addShop(@Valid Shop shop, BindingResult result, Model model) {
+	public String addShop(@Valid Shop shop, @ModelAttribute("user") User user, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			return "add-shop";
 		}
+		log.info(shop.toString());
+		log.info(user.toString());
+		log.info("MUHAhA");
 		this.shopRepository.save(shop);
 		model.addAttribute("shops", this.shopRepository.findAll());
 		return "shops";

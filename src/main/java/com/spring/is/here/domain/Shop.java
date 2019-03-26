@@ -28,7 +28,8 @@ public class Shop {
 	@JsonBackReference
 	@OneToMany(mappedBy = "shop")
 	private List<Product> products;
-	
+	@ManyToOne
+	private User shopOwner;
 
 	/**
 	 * Default constuctor
@@ -90,6 +91,16 @@ public class Shop {
 	 */
 	public void setProducts(List<Product> products) {
 		this.products = products;
+	}
+
+	
+	
+	public User getShopOwner() {
+		return shopOwner;
+	}
+
+	public void setShopOwner(User shopOwner) {
+		this.shopOwner = shopOwner;
 	}
 
 	@Override

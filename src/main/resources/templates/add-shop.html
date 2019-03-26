@@ -16,7 +16,10 @@
 											type="text" th:field="*{name}" class="form-control" id="name"
 											placeholder="Name"> <span
 											th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
-											class="text-danger"></span>
+											class="text-danger"></span> <select th:each="user : ${users}">
+											<option value="user.id" th:text="${user.fullname}">
+											</option>
+										</select>
 									</div>
 								</div>
 								<div class="row">
