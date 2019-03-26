@@ -1,0 +1,31 @@
+<!doctype html>
+<html layout:decorator="layouts/main">
+<body>
+	<div layout:fragment="contentFragment">
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">E-mail</th>
+					<th scope="col">Fullname</th>
+					<th scope="col">Roles</th>
+					<th scope="col">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="user : ${users}">
+					<td th:text="${user.fullname}">Mark</td>
+					<td th:text="${user.email}">Mark</td>
+					<td th:each="role : ${user.roles}">
+						<span th:text="${role.role}">Mark</span><br>
+					</td>
+					<td>
+						<a th:href="@{/admin/user/edit/{id}(id=${user.id})}" class="btn btn-sm btn-info">Edit</a>
+						<a th:href="@{/admin/user/delete/{id}(id=${user.id})}" class="btn btn-sm btn-info">Delete</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<a th:href="@{/shop/addnewshop}" class="btn btn-sm btn-info">Add new shop</a>
+	</div>
+</body>
+</html>

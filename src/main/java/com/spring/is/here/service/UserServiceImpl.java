@@ -1,5 +1,6 @@
 package com.spring.is.here.service;
 
+import java.util.List;
 import java.util.Random;
 
 import org.slf4j.Logger;
@@ -112,6 +113,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         log.info("NEW USER: " + user.toString());
 		this.userRepository.save(user);
+	}
+	
+	public List<User> findAllUsers() {
+		return userRepository.findAll();
 	}
 
 }
