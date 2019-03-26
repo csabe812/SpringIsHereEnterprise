@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,8 +32,10 @@ public class User {
 	private String password;
 
 	private String fullname;
-
-	@ManyToMany(cascade = CascadeType.ALL)
+private String activation;
+	
+	private Boolean enabled;
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "users_roles", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "role_id") })
 	private Set<Role> roles = new HashSet<Role>();
@@ -80,17 +83,31 @@ public class User {
 		this.roles = roles;
 	}
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", email=" + email + ", password=" + password + ", fullname=" + fullname + ", roles="
-				+ roles + "]";
+	public Boolean getEnabled() {
+		return enabled;
 	}
 
-	public void addRoles(String role) {
-		if(this.roles == null || this.roles.isEmpty()) {
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public String getActivation() {
+		return activation;
+	}
+
+	public void setActivation(String activation) {
+		this.activation = activation;
+	}
+
+	public void addRoles(String roleName) {
+		if (this.roles == null || this.roles.isEmpty()) 
 			this.roles = new HashSet<>();
-		}
-		this.roles.add(new Role(role));
+		this.roles.add(new Role(roleName));
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", email=" + email + ", password=" + password + "]";
 	}
 
 }

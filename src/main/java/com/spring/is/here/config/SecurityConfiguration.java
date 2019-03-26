@@ -3,30 +3,40 @@ package com.spring.is.here.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableGlobalMethodSecurity(securedEnabled=true)
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-	/*@Bean
-	public PasswordEncoder passwordEncoder() {
-	    return new BCryptPasswordEncoder();
-	}*/
+	@Autowired
+	private UserDetailsService userService;
 	
+	@Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+	
+	@Bean
+	public UserDetailsService userDetailsService() {
+	    return super.userDetailsService();
+	}
+
 	@Autowired
 	public void configureAuth(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(userService);
 		auth.inMemoryAuthentication()
-			.withUser("user").password("{noop}user").roles("USER")
+			/*.withUser("user").password("{noop}user").roles("USER")
 			.and()
 			.withUser("shopowner").password("{noop}shopowner").roles("SHOP_OWNER")
-			.and()
-			.withUser("admin").password("{noop}admin").roles("ADMIN");
+			.and()*/
+			.withUser("admin").password(bCryptPasswordEncoder().encode("admin")).roles("ADMIN");
 	}
 	
 	@Override
@@ -42,6 +52,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.antMatchers("/regist").permitAll()
 			.antMatchers("/reg").permitAll()
 			.antMatchers("/console/**").permitAll()
+			.antMatchers("/activation/**").permitAll()
 			.anyRequest().authenticated()
 			.and()
 			.formLogin()
@@ -57,5 +68,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.csrf().disable();
 		http.headers().frameOptions().disable();
 	}
+	
+	@Bean
+    public AuthenticationManager customAuthenticationManager() throws Exception {
+        return authenticationManager();
+    }
+	
+	@Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(this.userService).passwordEncoder(bCryptPasswordEncoder());
+    }
 	
 }

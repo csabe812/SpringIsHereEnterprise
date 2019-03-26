@@ -3,6 +3,8 @@
  */
 package com.spring.is.here.controller;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.spring.is.here.domain.User;
+import com.spring.is.here.service.EmailService;
 import com.spring.is.here.service.ProductService;
 import com.spring.is.here.service.ShopService;
 import com.spring.is.here.service.UserServiceImpl;
-
 
 /**
  * This is the HomeController class a.k.a. the main page a.k.a index
@@ -28,23 +30,26 @@ import com.spring.is.here.service.UserServiceImpl;
  */
 @Controller
 public class HomeController {
-	
+
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
 	private ProductService productService;
 	private ShopService shopService;
 	private UserServiceImpl userService;
-	
+	private EmailService emailService;
+
 	/**
 	 * Constructor
 	 * 
 	 * @param productService
 	 */
 	@Autowired
-	public HomeController(ProductService productService, ShopService shopService, UserServiceImpl userService) {
+	public HomeController(ProductService productService, ShopService shopService, UserServiceImpl userService,
+			EmailService emailService) {
 		this.productService = productService;
 		this.shopService = shopService;
 		this.userService = userService;
+		this.emailService = emailService;
 	}
 
 	/**
@@ -64,12 +69,12 @@ public class HomeController {
 		model.addAttribute("shops", this.shopService.getShops());
 		return "shops";
 	}
-	
+
 	@RequestMapping("/tesztoldal")
 	public String tesztoldal() {
 		return "start";
 	}
-	
+
 	/**
 	 * Get only ONE product
 	 * 
@@ -109,28 +114,38 @@ public class HomeController {
 //		model.addAttribute("product", productService.getSpecificProduct(name));
 //		return "product";
 //	}
-	
-	@RequestMapping(value="/reg", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/reg", method = RequestMethod.GET)
 	public String reg(User user) {
 		return "registration";
 	}
 
-	@RequestMapping(value="/regist", method = RequestMethod.POST)
+	@RequestMapping(value = "/regist", method = RequestMethod.POST)
 	public String regist(@ModelAttribute User user) {
 		log.info("New user");
+		emailService.sendMessage(user.getEmail());
+		log.debug(user.getFullname());
+		log.debug(user.getEmail());
+		log.debug(user.getPassword());
 		userService.registerUser(user);
 		return "auth/login";
 	}
-	
-	@RequestMapping(value="/admin/addshopowner", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/admin/addshopowner", method = RequestMethod.GET)
 	public String addShopOwner(User user) {
 		return "shopownerregistration";
 	}
-	
-	@RequestMapping(value="/admin/addnewshopowner", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/admin/addnewshopowner", method = RequestMethod.POST)
 	public String addNewShopOwner(@ModelAttribute User user) {
 		log.info("New user");
 		userService.registerShopOwner(user);
+		return "auth/login";
+	}
+
+	@RequestMapping(path = "/activation/{code}", method = RequestMethod.GET)
+	public String activation(@PathVariable("code") String code, HttpServletResponse response) {
+		String result = userService.userActivation(code);
 		return "auth/login";
 	}
 }
