@@ -1,5 +1,6 @@
 package com.spring.is.here.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.spring.is.here.domain.Shop;
 import com.spring.is.here.domain.User;
 import com.spring.is.here.repository.ShopRepository;
@@ -65,13 +68,14 @@ public class ShopController {
 	 * @return
 	 */
 	@RequestMapping(value = "/addshop", method = RequestMethod.POST)
-	public String addShop(@Valid Shop shop, @ModelAttribute("user") User user, BindingResult result, Model model) {
+	public String addShop(@Valid Shop shop, BindingResult result, Model model, @RequestParam String userka) {
 		if (result.hasErrors()) {
 			return "add-shop";
 		}
 		log.info(shop.toString());
-		log.info(user.toString());
+		log.info(userka);
 		log.info("MUHAhA");
+		shop.setShopOwner(this.userRepostiory.findById(Long.parseLong(userka)));
 		this.shopRepository.save(shop);
 		model.addAttribute("shops", this.shopRepository.findAll());
 		return "shops";
