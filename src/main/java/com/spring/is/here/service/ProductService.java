@@ -54,6 +54,10 @@ public class ProductService {
 		return this.productRepository.findFirstByOrderByPrice();
 	}
 
+	public Product getProductByName(String name) {
+		return this.productRepository.findByName(name);
+	}
+	
 	/**
 	 * Initializing with two products and storing it in a shop
 	 */
