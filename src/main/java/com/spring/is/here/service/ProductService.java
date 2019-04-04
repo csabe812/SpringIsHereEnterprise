@@ -80,4 +80,8 @@ public class ProductService {
 	public Product getSpecificProduct(String name) {
 		return this.productRepository.findByName(name);
 	}
+
+	public List<Product> findAllByStateId(long id) {
+		return this.productRepository.findByCountyCategoryId(id);
+	}
 }

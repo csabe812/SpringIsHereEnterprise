@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 /**
@@ -28,6 +29,10 @@ public class Product {
 	@ManyToOne
 	private Shop shop;
 
+	@ManyToOne
+    @JoinColumn
+    private County countyCategory;
+	
 	/**
 	 * Default parameterless constructor
 	 */
@@ -141,6 +146,15 @@ public class Product {
 		this.shop = shop;
 	}
 
+	
+
+	public County getCountyCategory() {
+		return countyCategory;
+	}
+
+	public void setCountyCategory(County countyCategory) {
+		this.countyCategory = countyCategory;
+	}
 
 	/**
 	 * A toString() method to print the object's data

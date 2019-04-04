@@ -4,3 +4,10 @@ insert into Product(name, price, description, shop_id) values ('Absinthe', 1000,
 insert into Product(name, price, description, shop_id) values ('vodka', 200, '40%', (select id from shop where name = 'Walmarkt'));
 insert into Product(name, price, description, shop_id) values ('Absinthe', 555, '80%', (select id from shop where name = 'Auchan'));
 insert into Product(name, price, description, shop_id) values ('Kalinka', 525, '35%', (select id from shop where name = 'Auchan'));
+insert into Counties(county_name) values ('Florida');
+insert into Counties(county_name) values ('Ohio');
+insert into Counties(county_name) values ('Texas');
+insert into Counties(county_name) values ('New York');
+insert into Counties(county_name) values ('California');
+insert into Counties(county_name) values ('Alaska');
+insert into Counties(county_name) values ('Hawaii');
